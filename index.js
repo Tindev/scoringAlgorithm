@@ -5,7 +5,7 @@ async function scoreUsers() {
     let body = {
         script: {
             lang: "painless",
-            inline: "ctx._source.calculated_skill = 0.05 * ctx._source.followers + 0.05 * ctx._source.public_repos"
+            inline: "if (ctx._source.containsKey('contributions')) { ctx._source.calculated_skill = 0.05 * ctx._source.followers + 0.05 * ctx._source.public_repos + 0.05 * ctx._source.contributions } else { ctx._source.calculated_skill = 0 }"
         }
     }
 
